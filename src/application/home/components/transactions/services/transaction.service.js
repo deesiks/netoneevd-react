@@ -1,7 +1,7 @@
 import React from "react";
 import axiosInstance from "../../../../../utilities/axios.service";
 
-const TRANSACTION_URL = '/opn/v1/transactions';
+const TRANSACTION_URL = '/admin/v1/transactions';
 const AIRTIME_URL = '/admin/v1/transactions/{id}/airtime'
 const AIRTIME_TICKET_URL = '/admin/v1/tickets/transaction/{id}'
 import fileDownload from "js-file-download";
