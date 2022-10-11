@@ -59,7 +59,7 @@ const AppBarComponent = (props) => {
                             sx={{ width: 30,
                                 height: 30,
                                 fontSize: '16px',
-                                bgcolor: '#d0d0d0'
+                                bgcolor: '#000000'
                             }}
                         >{userData?.user?.username?.toUpperCase().charAt(0)}
                         </Avatar>
