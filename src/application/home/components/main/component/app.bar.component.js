@@ -41,7 +41,7 @@ const AppBarComponent = (props) => {
                     component="div"
                     sx={{ display: { xs: 'none', sm: 'block' } }}
                 >
-                    <span>{`Hi, ${userData?.user?.username?.toUpperCase()}`}</span>
+                    <span>{`Hi, ${userData?.user?.username}`}</span>
                 </Typography>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
