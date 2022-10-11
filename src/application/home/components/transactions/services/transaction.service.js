@@ -2,8 +2,10 @@ import React from "react";
 import axiosInstance from "../../../../../utilities/axios.service";
 
 const TRANSACTION_URL = '/admin/v1/transactions';
-const AIRTIME_URL = '/admin/v1/transactions/{id}/airtime'
-const AIRTIME_TICKET_URL = '/admin/v1/tickets/transaction/{id}'
+const AIRTIME_URL = '/admin/v1/transactions/{id}/airtime';
+const AIRTIME_TICKET_URL = '/admin/v1/tickets/transaction/{id}';
+const BACK_COVER_URL = '/admin/v1/tickets/back-cover';
+
 import fileDownload from "js-file-download";
 
 const getAllTransactions = (pageNumber) => {
@@ -47,6 +49,19 @@ const printAirtime = (transactionId) => {
 
 }
 
+const printBackCover = () => {
+
+    return axiosInstance.get(BACK_COVER_URL, {responseType: 'blob'})
+        .then(response => {
+            fileDownload(response.data, 'backcovers.pdf');
+            return true;
+        })
+        .catch(err => {
+            throw err
+        })
+
+}
+
 const getNewTransaction  = (newTransaction) => {
 
     return axiosInstance.post(TRANSACTION_URL, newTransaction)
@@ -61,4 +76,4 @@ const getNewTransaction  = (newTransaction) => {
 
 }
 
-export {getAllTransactions, getAirtime, printAirtime, getNewTransaction}
+export {getAllTransactions, getAirtime, printAirtime, getNewTransaction, printBackCover}

@@ -11,10 +11,10 @@ import {
     TableHead,
     TableRow
 } from "@mui/material";
-import {PlusIcon} from "@heroicons/react/24/solid";
+import {PlusIcon, ArrowDownTrayIcon} from "@heroicons/react/24/solid";
 import {useState} from "react";
 import PrintComponent from "./print.component";
-import {printAirtime} from "../services/transaction.service";
+import {printAirtime, printBackCover} from "../services/transaction.service";
 import LoadingIndicatorComponent from "../../../../../utilities/loading.indicator.component";
 import NewTransactionDialog from "./new.transaction.dialog";
 import {useAlert} from "react-alert";
@@ -74,6 +74,28 @@ const TransactionDataComponent = (props) => {
             });
     }
 
+    const printBackCovers = () => {
+
+        toggleTransactionDataDialog();
+        isPrintLoading(true);
+
+        printBackCover().then(
+            () => {
+                isPrintLoading(false);
+            }
+        ).catch(err => {
+
+            if (!err.response.data.message){
+                alert.error(err.message);
+            }else{
+                alert.error(err.response.data.message);
+            }
+
+            isPrintLoading(false);
+        });
+
+    }
+
     const columns = [
         { id: 'transactionDate', label: 'Date', minWidth: 150 },
         { id: 'amount', label: 'Amount', minWidth: 100, align: 'right' },
@@ -110,6 +132,11 @@ const TransactionDataComponent = (props) => {
                         <IconButton onClick={openNewTransaction}>
                             <PlusIcon className='w-5 h-5'/>
                         </IconButton>
+
+                        <IconButton onClick={printBackCovers}>
+                            <ArrowDownTrayIcon className='w-5 h-5'/>
+                        </IconButton>
+
                     </div>
 
                     <div className='ml-auto flex items-center'>
