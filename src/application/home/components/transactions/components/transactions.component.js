@@ -11,7 +11,7 @@ const TransactionsComponent = () => {
 
     const [transactionsData, setTransactionsData] = useState([]);
 
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
 
     const handlePageChange = (newPage) =>{
 
