@@ -1,6 +1,5 @@
 import React from "react";
 import {Pagination, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import UtilityBarComponent from "./utility.bar.component";
 
 const AirtimeDataComponent = (props) => {
 
