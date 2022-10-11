@@ -21,7 +21,7 @@ const NewTransactionDialog = (props) => {
 
     const alert = useAlert();
 
-    const {handleOnClose} = props;
+    const {handleOnClose, refresh} = props;
     const [loading, isButtonLoading] = useState(false);
 
     const [transactionRequest, setTransactionRequest] = useState({
@@ -50,6 +50,7 @@ const NewTransactionDialog = (props) => {
 
         getNewTransaction(newTransactionRequest).then(
             () => {
+                refresh();
                 isButtonLoading(false);
                 handleOnClose();
                 alert.success("Transaction has been queued.");

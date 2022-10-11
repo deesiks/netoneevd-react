@@ -23,7 +23,7 @@ const TransactionDataComponent = (props) => {
 
     const alert = useAlert();
 
-    const {transactionData, changePage, saveTransaction} = props;
+    const {transactionData, changePage, refresh} = props;
     const [openPrintTransactionDialog, isPrintTransactionDialogOpen] = useState(false);
     const [openNewTransactionDialog, isNewTransactionDialogOpen] = useState(false);
     const [selected, setSelected] = useState(null);
@@ -179,6 +179,7 @@ const TransactionDataComponent = (props) => {
                 {openNewTransactionDialog &&
                 <NewTransactionDialog
                     handleOnClose = {toggleNewTransactionDataDialog}
+                    refresh = {refresh}
                   />}
 
                 <LoadingIndicatorComponent open = {printLoading} text = {'Downloading...'}/>

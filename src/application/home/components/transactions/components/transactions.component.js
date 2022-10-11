@@ -12,6 +12,13 @@ const TransactionsComponent = () => {
     const [transactionsData, setTransactionsData] = useState([]);
 
     const [page, setPage] = useState(1);
+    const [refresh, isRefresh] = useState(false);
+
+    const toggleRefresh = () => {
+
+        isRefresh(prevState => !prevState)
+
+    }
 
     const handlePageChange = (newPage) =>{
 
@@ -35,7 +42,7 @@ const TransactionsComponent = () => {
 
         });
 
-    },[page])
+    },[page, refresh])
 
 
     return (
@@ -46,6 +53,7 @@ const TransactionsComponent = () => {
             <TransactionDataComponent
                 transactionData = {transactionsData}
                 changePage ={handlePageChange}
+                refresh = {toggleRefresh}
             />
         </div>
     )
