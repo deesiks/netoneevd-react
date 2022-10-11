@@ -76,7 +76,6 @@ const TransactionDataComponent = (props) => {
 
     const printBackCovers = () => {
 
-        toggleTransactionDataDialog();
         isPrintLoading(true);
 
         printBackCover().then(
