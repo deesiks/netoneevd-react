@@ -13,7 +13,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "develop": "webpack-dev-server --mode development --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
