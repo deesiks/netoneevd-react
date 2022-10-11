@@ -47,10 +47,18 @@ const printAirtime = (transactionId) => {
 
 }
 
-const greatNewTransaction  = () => {
+const getNewTransaction  = (newTransaction) => {
 
+    return axiosInstance.post(TRANSACTION_URL, newTransaction)
+        .then(response => {
+            return response
+            }
+        )
+        .catch(err => {
+            throw err
+        })
 
 
 }
 
-export {getAllTransactions, getAirtime, printAirtime}
+export {getAllTransactions, getAirtime, printAirtime, getNewTransaction}

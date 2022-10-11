@@ -2,13 +2,12 @@ import React from "react";
 import {
     Box, Button,
     Dialog, DialogActions, DialogContent,
-    DialogContentText,
     DialogTitle,
 } from "@mui/material";
 import AirtimeDataComponent from "./airtime.data.component";
 import {useAlert} from "react-alert";
 import {useEffect, useState} from "react";
-import {getAirtime, getAllTransactions} from "../services/transaction.service";
+import {getAirtime} from "../services/transaction.service";
 
 const PrintComponent = (props) => {
 

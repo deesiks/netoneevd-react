@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import Denominations from "../framework/denominations";
 import LoadingButton from "@mui/lab/LoadingButton";
+import {getNewTransaction, printAirtime} from "../services/transaction.service";
 
 const NewTransactionDialog = (props) => {
 
@@ -42,7 +43,24 @@ const NewTransactionDialog = (props) => {
 
     const createTransaction = (newTransactionRequest) => {
 
+        isButtonLoading(true);
 
+        getNewTransaction(newTransactionRequest).then(
+            () => {
+                isButtonLoading(false);
+                handleOnClose();
+                alert.success("Transaction has been queued.");
+            }
+        ).catch(err => {
+
+            if (!err.response.data.message){
+                alert.error(err.message);
+            }else{
+                alert.error(err.response.data.message);
+            }
+
+            isButtonLoading(false);
+        });
 
     }
 
@@ -108,7 +126,10 @@ return(
 
     >
             <LoadingButton
-                onClick= {() => {}}
+                loading = {loading}
+                onClick= {() => {
+                    createTransaction(transactionRequest)
+                }}
 
                 sx = {{
                     marginRight: '8px'
