@@ -17,8 +17,11 @@ import PrintComponent from "./print.component";
 import {printAirtime} from "../services/transaction.service";
 import LoadingIndicatorComponent from "../../../../../utilities/loading.indicator.component";
 import NewTransactionDialog from "./new.transaction.dialog";
+import {useAlert} from "react-alert";
 
 const TransactionDataComponent = (props) => {
+
+    const alert = useAlert();
 
     const {transactionData, changePage, saveTransaction} = props;
     const [openPrintTransactionDialog, isPrintTransactionDialogOpen] = useState(false);

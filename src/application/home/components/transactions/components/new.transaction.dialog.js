@@ -15,8 +15,11 @@ import {
 import Denominations from "../framework/denominations";
 import LoadingButton from "@mui/lab/LoadingButton";
 import {getNewTransaction, printAirtime} from "../services/transaction.service";
+import {useAlert} from "react-alert";
 
 const NewTransactionDialog = (props) => {
+
+    const alert = useAlert();
 
     const {handleOnClose} = props;
     const [loading, isButtonLoading] = useState(false);
