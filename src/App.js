@@ -42,7 +42,7 @@ function App() {
                     <Route
                         path="/"
                         element={
-                          <Navigate replace to="/home" />
+                          <Navigate replace to="/home/transactions" />
                         }
                     />
                   </Route>
