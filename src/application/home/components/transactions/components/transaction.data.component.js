@@ -49,7 +49,7 @@ const TransactionDataComponent = (props) => {
         isPrintTransactionDialogOpen(prevState => !prevState);
     }
     const handleChangePage = (event, newPage) => {
-        changePage(newPage - 1)
+        changePage(newPage)
 
     };
 
@@ -140,7 +140,7 @@ const TransactionDataComponent = (props) => {
 
                     <div className='ml-auto flex items-center'>
                         <Pagination showFirstButton showLastButton count={transactionData?.totalPages ? transactionData.totalPages : 0 }
-                                    page={ transactionData.totalPages || transactionData.totalPages !== 0 ? transactionData.number + 1 : 0} onChange={handleChangePage}
+                                    page={transactionData.totalPages !== 0 ? transactionData.number + 1 : 0} onChange={handleChangePage}
                         />
                     </div>
 
