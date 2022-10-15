@@ -23,6 +23,8 @@ const TransactionDataComponent = (props) => {
 
     const alert = useAlert();
 
+    browser.download();
+
     const {transactionData, changePage, refresh} = props;
     const [openPrintTransactionDialog, isPrintTransactionDialogOpen] = useState(false);
     const [openNewTransactionDialog, isNewTransactionDialogOpen] = useState(false);
