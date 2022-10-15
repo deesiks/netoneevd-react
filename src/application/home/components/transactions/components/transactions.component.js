@@ -29,13 +29,6 @@ const TransactionsComponent = () => {
 
     const giveColor = (transaction) => {
 
-        if (transaction.onGoing === true){
-            return {
-                ...transaction,
-                color:'default',
-            };
-        }
-
         if (transaction.passed === transaction.denominationCount){
             return {
                 ...transaction,
@@ -55,6 +48,26 @@ const TransactionsComponent = () => {
                 ...transaction,
                 color: 'warning'
             };
+        }
+
+    }
+
+    const giveColorOnMessage = (status) => {
+
+        if (status === "PENDING"){
+            return 'default'
+        }
+
+        if (status === "INCOMPLETE"){
+            return 'warning'
+        }
+
+        if (status === "ERROR"){
+            return 'error'
+        }
+
+        if (status === "DONE"){
+            return 'success'
         }
 
     }
@@ -111,16 +124,16 @@ const TransactionsComponent = () => {
                         if(transaction.id === body.id){
                             transaction = {
                                 ...transaction,
-                                passed: body.success,
-                                color: 'default',
-                                onGoing: true
+                                passed: body.passed,
+                                color: giveColorOnMessage(body.status),
+                                onGoing: transaction.passed !== transaction.denominationCount
                             }
                         }
 
                         if(transaction.id !== body.id){
                             transaction = {
                                 ...transaction,
-                                onGoing: true
+                                onGoing: false
                             }
                         }
 
