@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {Toolbar} from "@mui/material";
 import TransactionDataComponent from "./transaction.data.component";
 import {getAllTransactions} from "../services/transaction.service";
+import {connectAndSubscribe} from "../../../../../utilities/websocket.service";
 
 const TransactionsComponent = () => {
 
@@ -26,11 +27,135 @@ const TransactionsComponent = () => {
 
     }
 
+    const giveColor = (transaction) => {
+
+        if (transaction.onGoing === true){
+            return {
+                ...transaction,
+                color:'default',
+            };
+        }
+
+        if (transaction.passed === transaction.denominationCount){
+            return {
+                ...transaction,
+                color: 'success',
+            };
+        }
+
+        if(transaction.passed === 0){
+            return {
+                ...transaction,
+                color: 'error'
+            };
+        }
+
+        if(transaction.passed < transaction.denominationCount){
+            return {
+                ...transaction,
+                color: 'warning'
+            };
+        }
+
+    }
+
+    const connectForNotification = (data) => {
+
+        const endpoint = "/opn/v1/notifications/airtime";
+
+        connectAndSubscribe(endpoint, "/user/topic/airtime",
+
+            () => {
+                setTransactionsData(prevState => {
+
+                    const newContent = data.content.map(transaction => {
+
+                        if(transaction.onGoing === true){
+                            transaction = {
+                                ...transaction,
+                                onGoing: false,
+                            }
+                        }
+
+                        return transaction;
+
+                    })
+
+                    return (
+                        {
+                            ...prevState,
+                            content : newContent
+                        }
+                    )
+
+                })
+                alert.info("Reconnecting...");
+
+            },
+
+            (message) =>{
+
+            const body = JSON.parse(message.body)
+
+                setTransactionsData(prevState => {
+
+                    const transaction = data.content
+                        .find( transaction => transaction.id === body.id );
+
+                    if (transaction === null){
+                        return ;
+                    }
+
+                    const newContent = data.content.map(transaction => {
+
+                        if(transaction.id === body.id){
+                            transaction = {
+                                ...transaction,
+                                passed: body.success,
+                                color: 'default',
+                                onGoing: true
+                            }
+                        }
+
+                        if(transaction.id !== body.id){
+                            transaction = {
+                                ...transaction,
+                                onGoing: true
+                            }
+                        }
+
+                        return transaction;
+
+                    })
+
+                    return (
+                        {
+                            ...prevState,
+                            content : newContent
+                        }
+                    )
+
+                })
+
+            }
+
+        )
+
+    }
+
     useEffect(() => {
 
         getAllTransactions(page).then(
             response => {
-                setTransactionsData(response.data);
+
+                const newTransactions = response.data.content.map(trans => giveColor(trans));
+
+                const newData = {
+                    ...response.data,
+                    content : newTransactions
+                }
+                setTransactionsData(newData);
+                connectForNotification(newData);
             }
         ).catch(err => {
 

@@ -23,8 +23,6 @@ const TransactionDataComponent = (props) => {
 
     const alert = useAlert();
 
-    browser.download();
-
     const {transactionData, changePage, refresh} = props;
     const [openPrintTransactionDialog, isPrintTransactionDialogOpen] = useState(false);
     const [openNewTransactionDialog, isNewTransactionDialogOpen] = useState(false);
@@ -184,7 +182,17 @@ const TransactionDataComponent = (props) => {
                                                 const value = transaction[column.id];
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
-                                                        {value}
+                                                        {column.id === "passed" ?
+
+                                                            <Chip label={value} color={transaction.color}
+
+                                                                  sx ={{
+                                                                      width: '60px'
+                                                                  }}
+
+                                                            /> : value
+
+                                                        }
                                                     </TableCell>
                                                 );
                                             })}
