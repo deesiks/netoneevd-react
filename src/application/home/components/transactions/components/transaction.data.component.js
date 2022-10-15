@@ -18,12 +18,13 @@ import {printAirtime, printBackCover} from "../services/transaction.service";
 import LoadingIndicatorComponent from "../../../../../utilities/loading.indicator.component";
 import NewTransactionDialog from "./new.transaction.dialog";
 import {useAlert} from "react-alert";
+import Skeleton from '@mui/material/Skeleton';
 
 const TransactionDataComponent = (props) => {
 
     const alert = useAlert();
 
-    const {transactionData, changePage, refresh} = props;
+    const {transactionData, changePage, refresh, fetching} = props;
     const [openPrintTransactionDialog, isPrintTransactionDialogOpen] = useState(false);
     const [openNewTransactionDialog, isNewTransactionDialogOpen] = useState(false);
     const [selected, setSelected] = useState(null);
@@ -140,7 +141,7 @@ const TransactionDataComponent = (props) => {
 
                     <div className='ml-auto flex items-center'>
                         <Pagination showFirstButton showLastButton count={transactionData?.totalPages ? transactionData.totalPages : 0 }
-                                    page={transactionData.totalPages !== 0 ? transactionData.number + 1 : 0} onChange={handleChangePage}
+                                    page={transactionData?.totalPages !== 0 ? transactionData?.number + 1 : 0} onChange={handleChangePage}
                         />
                     </div>
 
@@ -176,13 +177,12 @@ const TransactionDataComponent = (props) => {
                                                       setSelected(transaction);
                                                       toggleTransactionDataDialog();
                                                   }}
-
                                         >
                                             {columns.map((column) => {
-                                                const value = transaction[column.id];
+                                               const value = fetching? '': transaction[column.id];
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
-                                                        {column.id === "passed" ?
+                                                        { !fetching && ( column.id === "passed" ?
 
                                                             <Chip label={value} color={transaction.color}
 
@@ -190,9 +190,12 @@ const TransactionDataComponent = (props) => {
                                                                       width: '60px'
                                                                   }}
 
-                                                            /> : value
+                                                            /> : value)}
 
-                                                        }
+
+
+                                                        {fetching && <Skeleton/>}
+
                                                     </TableCell>
                                                 );
                                             })}

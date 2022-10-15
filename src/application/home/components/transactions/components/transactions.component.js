@@ -10,10 +10,24 @@ const TransactionsComponent = () => {
 
     const alert = useAlert();
 
-    const [transactionsData, setTransactionsData] = useState([]);
+    const [transactionsData, setTransactionsData] = useState({
+        totalPages:1,
+        number:1
+    });
+
+    const [skeletonTransactionData, setSkeletonData] = useState( {  content: [
+            {id:1},
+            {id:2},
+            {id:3}
+        ],
+        totalPages:1,
+        number:1
+
+    });
 
     const [page, setPage] = useState(1);
     const [refresh, isRefresh] = useState(false);
+    const [fetching, isFetching] = useState(true);
 
     const toggleRefresh = () => {
 
@@ -158,10 +172,20 @@ const TransactionsComponent = () => {
 
     useEffect(() => {
 
+        isFetching(true)
+
         getAllTransactions(page).then(
             response => {
 
                 const newTransactions = response.data.content.map(trans => giveColor(trans));
+                setSkeletonData(prev => {
+                    return {
+                        ...prev,
+
+                        totalPages: response.data.totalPages,
+                        number: response.data.number
+                    }
+                })
 
                 const newData = {
                     ...response.data,
@@ -169,9 +193,10 @@ const TransactionsComponent = () => {
                 }
                 setTransactionsData(newData);
                 connectForNotification(newData);
+                isFetching(false)
             }
         ).catch(err => {
-
+            isFetching(false)
             if (!err.response.data.message){
                 alert.error(err.message);
             }else{
@@ -189,9 +214,10 @@ const TransactionsComponent = () => {
             <Toolbar
                 variant='dense'/>
             <TransactionDataComponent
-                transactionData = {transactionsData}
+                transactionData = {fetching ? skeletonTransactionData : transactionsData}
                 changePage ={handlePageChange}
                 refresh = {toggleRefresh}
+                fetching = {fetching}
             />
         </div>
     )
