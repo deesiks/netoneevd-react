@@ -17,7 +17,7 @@ const connectAndSubscribe = (ws, topic, onError, onReceived) => {
     const connectStomp = () =>{
 
         const stompClient = Stomp.client(link);
-       // stompClient.debug = function(str) {};
+        stompClient.debug = function(str) {};
         stompClient.connect(
             header,
             () =>stompClient.subscribe(topic, onReceived)
