@@ -14,7 +14,7 @@ import {
 import {PlusIcon, ArrowDownTrayIcon} from "@heroicons/react/24/solid";
 import {useState} from "react";
 import PrintComponent from "./print.component";
-import {printAirtime, printBackCover} from "../services/transaction.service";
+import {printAirtime, printBackCover, printSavedAirtime} from "../services/transaction.service";
 import LoadingIndicatorComponent from "../../../../../utilities/loading.indicator.component";
 import NewTransactionDialog from "./new.transaction.dialog";
 import {useAlert} from "react-alert";
@@ -59,7 +59,7 @@ const TransactionDataComponent = (props) => {
         toggleTransactionDataDialog();
         isPrintLoading(true);
 
-            printAirtime(selected.id).then(
+            printSavedAirtime(selected.id).then(
                 () => {
                     isPrintLoading(false);
                 }

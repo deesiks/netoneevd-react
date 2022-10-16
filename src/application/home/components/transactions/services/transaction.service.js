@@ -90,4 +90,4 @@ const getNewTransaction  = (newTransaction) => {
 
 }
 
-export {getAllTransactions, getAirtime, printAirtime, getNewTransaction, printBackCover}
+export {getAllTransactions, getAirtime, printAirtime, getNewTransaction, printBackCover, printSavedAirtime}
