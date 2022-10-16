@@ -93,7 +93,7 @@ const LoginComponent = () => {
     }
 
     return (
-        <div className='h-screen min-h-[500px] max-h-full min-bg-cover bg-center bg-no-repeat flex flex-col' style={{
+        <div className='h-screen min-h-[500px] bg-cover bg-center bg-no-repeat flex flex-col' style={{
             backgroundImage: `url(${loginImage})`
         }}>
             <div className='md:hidden
