@@ -93,7 +93,7 @@ const LoginComponent = () => {
     }
 
     return (
-        <div className='h-screen bg-cover bg-center bg-no-repeat flex' style={{
+        <div className='h-screen min-h-[500px] max-h-full min-bg-cover bg-center bg-no-repeat flex flex-col' style={{
             backgroundImage: `url(${loginImage})`
         }}>
             <div className='md:hidden
@@ -162,8 +162,7 @@ const LoginComponent = () => {
 
             </div>
 
-            <footer className='
-            absolute bottom-0 bg-[#003366] h-[20px] w-full text-center text-[10px] text-slate-200
+            <footer className='bg-[#003366] h-[20px] w-full text-center text-[10px] text-slate-200
             flex justify-center items-center
             '>
                 Developed By FourTen Softwares &copy; 2022 | +263 77 4780 820
