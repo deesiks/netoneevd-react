@@ -93,17 +93,23 @@ const LoginComponent = () => {
     }
 
     return (
-        <div className='h-screen bg-cover bg-center bg-no-repeat md:pt-8 ' style={{
+        <div className='h-screen bg-cover bg-center bg-no-repeat flex' style={{
             backgroundImage: `url(${loginImage})`
         }}>
+            <div className='md:hidden
+            absolute top-0 bg-[#003366] h-[20px] w-full text-center text-[10px] text-slate-200
+            flex justify-center items-center
+            '>
+            </div>
 
-            <div className='flex flex-col items-center justify-center md:h-[400px] bg-[#f4f8f3] mx-auto lg:w-[300px]  w-full h-full md:py-56
+            <div className='flex flex-col items-center bg-opacity-95 lg:bg-opacity-100 justify-center align-middle md:h-[380px] bg-[#f4f8f3] mx-auto my-auto lg:w-[300px]  w-full h-full md:py-56
             md:shadow-[0_35px_60px_-20px_rgba(0,0,0)]
             '>
 
-                   <div className='flex flex-col w-full items-center'>
+                <img src={logo} alt='login_image' className='w-[150px] object-scale-down object-center mb-16'/>
 
-                   <img src={logo} alt='login_image' className='w-[200px] object-scale-down object-center'/>
+                <div className='flex flex-col w-full items-center'>
+
 
                     <TextField
                         label="Username"
@@ -112,7 +118,7 @@ const LoginComponent = () => {
                         value={loginRequest.username}
                         onChange={handleOnChange}
 
-                        className='lg:w-4/5 w-[300px]'
+                        className='lg:w-4/5 w-[250px]'
                     />
 
                     <TextField
@@ -139,12 +145,12 @@ const LoginComponent = () => {
 
                             </InputAdornment>
                         }}
-                        className='lg:w-4/5 w-[300px]'
+                        className='lg:w-4/5 w-[250px]'
                     />
 
                     <LoadingButton
                         variant="contained"
-                        className='lg:w-4/5 w-[300px]'
+                        className='lg:w-4/5 w-[250px]'
                         loading={isButtonLoading}
                         disabled={!isButtonEnabled}
                         onClick={login}
