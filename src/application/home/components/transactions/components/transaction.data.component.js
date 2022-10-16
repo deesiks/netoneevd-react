@@ -140,7 +140,7 @@ const TransactionDataComponent = (props) => {
                     </div>
 
                     <div className='ml-auto flex items-center'>
-                        <Pagination showFirstButton showLastButton count={transactionData?.totalPages ? transactionData.totalPages : 0 }
+                        <Pagination size='small' showFirstButton showLastButton count={transactionData?.totalPages ? transactionData.totalPages : 0 }
                                     page={transactionData?.totalPages !== 0 ? transactionData?.number + 1 : 0} onChange={handleChangePage}
                         />
                     </div>

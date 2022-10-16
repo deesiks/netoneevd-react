@@ -8,7 +8,6 @@ import localStorageService from "../../../../../utilities/local.storage.service"
 
 const SideDrawerComponent = (props) => {
 
-    const {userData} = useAuth();
     const {open, selectedId, onClick} = props;
 
     const drawerWidth = 200;
@@ -53,7 +52,15 @@ const SideDrawerComponent = (props) => {
 
     return (
 
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={open}
+
+                sx ={{
+                    display:{
+                        md: 'flex',
+                        xs:'none'
+                    }
+                }}
+        >
             <Toolbar
                 variant='dense'/>
             <List>

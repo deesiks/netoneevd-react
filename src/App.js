@@ -25,7 +25,6 @@ function App() {
 
           <AlertProvider template={AlertTemplate}>
             <AuthProvider loggedInUserData={loggedInUserData}>
-
               <Routes>
                 <Route
                     path="/login"

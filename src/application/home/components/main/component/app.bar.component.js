@@ -1,12 +1,13 @@
 import React from "react";
-import {AppBar, Avatar, Box, IconButton, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
+import {AppBar, Avatar, Box, Divider, IconButton, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
 import {Bars3Icon} from "@heroicons/react/24/solid";
 import {useAuth} from "../../../../authentication/context/auth.context";
+import Routes from "../constants/routes";
 
 const AppBarComponent = (props) => {
 
     const {userData} = useAuth();
-    const {handleMenuBarClick, logOut} = props;
+    const {handleMenuBarClick, logOut, routeToChild} = props;
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -31,7 +32,12 @@ const AppBarComponent = (props) => {
                     color="inherit"
                     onClick={handleMenuBarClick}
                     aria-label="toggleDrawer"
-                    sx={{ mr: 2 }}
+                    sx={{ mr: 2,
+                        display: {
+                            md: 'flex',
+                            xs:'none',
+                        }
+                }}
                 >
                     <Bars3Icon className='w-5 h-5' />
                 </IconButton>
@@ -39,12 +45,12 @@ const AppBarComponent = (props) => {
                     variant="h6"
                     noWrap
                     component="div"
-                    sx={{ display: { xs: 'none', sm: 'block' } }}
+                    sx={{ display: { sm: 'block' } }}
                 >
                     <span>{`Hi, ${userData ? userData.user ? userData.user.username ? userData.user.username :'' : "":" "}`}</span>
                 </Typography>
                 <Box sx={{ flexGrow: 1 }} />
-                <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Box sx={{ display: { md: 'flex' } }}>
 
                     <IconButton
                         size="small"
@@ -65,9 +71,7 @@ const AppBarComponent = (props) => {
                         </Avatar>
                     </IconButton>
                 </Box>
-                <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
 
-                </Box>
             </Toolbar>
 
             <Menu
@@ -79,6 +83,20 @@ const AppBarComponent = (props) => {
                     'aria-labelledby': 'basic-button',
                 }}
             >
+
+                {Routes.map(route =>
+
+                <MenuItem onClick={
+
+                    () => {
+                        handleClose();
+                        routeToChild(route.id)
+                    }}>
+                    {route.label}
+                </MenuItem>)}
+
+                <Divider/>
+
                 <MenuItem onClick={
 
                     () => {
