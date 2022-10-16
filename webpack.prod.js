@@ -29,8 +29,8 @@ module.exports = () => {
             new webpack.DefinePlugin({
                 "process.env": {
                     NODE_ENV: JSON.stringify("production"),
-                    REACT_APP_API: JSON.stringify("https://netone-evd.herokuapp.com"),
-                    WEB_SOCKET: JSON.stringify("ws://38.242.250.197/netone-evd")
+                    REACT_APP_API: JSON.stringify("https://api.netoneevd.fourtensoftwares.com"),
+                    WEB_SOCKET: JSON.stringify("wss://api.netoneevd.fourtensoftwares.com")
                 }
             })
         ],
