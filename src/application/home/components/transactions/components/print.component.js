@@ -17,6 +17,18 @@ const PrintComponent = (props) => {
 
     const [airtimeData, setAirtimeData] = useState([]);
 
+    const [skeletonData, setSkeletonData] = useState( {  content: [
+            {id:1},
+            {id:2},
+            {id:3}
+        ],
+        totalPages:1,
+        number:1
+
+    });
+
+    const [fetching, isFetching] = useState(true);
+
     const [page, setPage] = useState(0);
 
     const handlePageChange = (event, newPage) =>{
@@ -27,12 +39,25 @@ const PrintComponent = (props) => {
 
     useEffect(() => {
 
+        isFetching(true)
+
         getAirtime(selected.id, page).then(
             response => {
+                isFetching(false);
+                setSkeletonData(prev => {
+                    return {
+                        ...prev,
+
+                        totalPages: response.data.totalPages,
+                        number: response.data.number
+                    }
+                })
+
                 setAirtimeData(response.data);
+
             }
         ).catch(err => {
-
+            isFetching(false)
             if (!err.response.data.message){
                 alert.error(err.message);
             }else{
@@ -59,13 +84,17 @@ const PrintComponent = (props) => {
                        display: 'flex',
                        flexDirection: 'column',
                        m: 'auto',
-                       width: 'fit-content',
+                       width: {
+                           md: '600px',
+                           xs: 'fit-content'
+                       }
                    }}
                >
                    <AirtimeDataComponent
 
-                       airtimeData = {airtimeData}
+                       airtimeData = {fetching ?  skeletonData : airtimeData}
                        changePage = {handlePageChange}
+                       fetching = {fetching}
 
                    />
 

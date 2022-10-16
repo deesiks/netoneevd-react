@@ -63,13 +63,14 @@ const MainComponent = () => {
 
             <AppBarComponent handleMenuBarClick = {handleDrawerToggle}
                              logOut = {_logOut}
+                             routeToChild = {navigateToChildRoute}
             />
 
             <SideDrawerComponent open = {isDrawerOpen} selectedId = {selectedId} onClick = {navigateToChildRoute}/>
 
             <Outlet sx = {{
                 display: 'flex',
-                overflowY: 'auto'
+                overflowY: 'auto',
             }}/>
         </div>)
 

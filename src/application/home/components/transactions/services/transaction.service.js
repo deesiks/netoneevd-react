@@ -4,6 +4,7 @@ import axiosInstance from "../../../../../utilities/axios.service";
 const TRANSACTION_URL = '/admin/v1/transactions';
 const AIRTIME_URL = '/admin/v1/transactions/{id}/airtime';
 const AIRTIME_TICKET_URL = '/admin/v1/tickets/transaction/{id}';
+const NEW_AIRTIME_TICKET_URL = '/admin/v1/tickets/transaction/generate/{id}';
 const BACK_COVER_URL = '/admin/v1/tickets/back-cover';
 
 import fileDownload from "js-file-download";
@@ -49,6 +50,19 @@ const printAirtime = (transactionId) => {
 
 }
 
+const printSavedAirtime = (transactionId) => {
+
+    return axiosInstance.get(`${NEW_AIRTIME_TICKET_URL.replace('{id}',transactionId)}`, {responseType: 'blob'})
+        .then(response => {
+            fileDownload(response.data, 'airtime.pdf');
+            return true;
+        })
+        .catch(err => {
+            throw err
+        })
+
+}
+
 const printBackCover = () => {
 
     return axiosInstance.get(BACK_COVER_URL, {responseType: 'blob'})
@@ -76,4 +90,4 @@ const getNewTransaction  = (newTransaction) => {
 
 }
 
-export {getAllTransactions, getAirtime, printAirtime, getNewTransaction, printBackCover}
+export {getAllTransactions, getAirtime, printAirtime, getNewTransaction, printBackCover, printSavedAirtime}

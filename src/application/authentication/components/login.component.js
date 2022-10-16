@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import loginImage from '../../../assets/images/login.webp';
+import logo from '../../../assets/images/logo.webp'
 import {IconButton, InputAdornment, TextField} from "@mui/material";
 import {EyeIcon, EyeSlashIcon} from "@heroicons/react/24/outline";
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -55,7 +56,7 @@ const LoginComponent = () => {
     //useEffect
     useEffect(() => {
 
-        validateRequest()
+        validateRequest();
 
     }, [loginRequest]);
 
@@ -81,7 +82,8 @@ const LoginComponent = () => {
 
                 console.log(err)
 
-                if (!err.response.data.message){
+                if (!err?.response?.data?.message
+                ){
                    alert.error(err.message);
                 }else{
                    alert.error(err.response.data.message);
@@ -91,17 +93,23 @@ const LoginComponent = () => {
     }
 
     return (
-        <div className='flex h-screen bg-gray-100'>
-
-            <div className='w-3/4'>
-                <img src={loginImage} alt='login_image' className='w-full h-screen object-none object-center'/>
+        <div className='h-screen min-h-[500px] bg-cover bg-center bg-no-repeat flex flex-col' style={{
+            backgroundImage: `url(${loginImage})`
+        }}>
+            <div className='md:hidden
+            absolute top-0 bg-[#003366] h-[20px] w-full text-center text-[10px] text-slate-200
+            flex justify-center items-center
+            '>
             </div>
 
-            <div className='w-1/4 flex flex-col items-center justify-center h-full'>
+            <div className='flex flex-col items-center bg-opacity-95 lg:bg-opacity-100 justify-center align-middle md:h-[380px] bg-[#f4f8f3] mx-auto my-auto lg:w-[300px]  w-full h-full md:py-56
+            md:shadow-[0_35px_60px_-20px_rgba(0,0,0)]
+            '>
 
-                   <div className='flex flex-col w-full items-center'>
+                <img src={logo} alt='login_image' className='w-[150px] object-scale-down object-center mb-16'/>
 
-                    <h3 className='text-3xl mb-4'>Airtime Portal</h3>
+                <div className='flex flex-col w-full items-center'>
+
 
                     <TextField
                         label="Username"
@@ -110,7 +118,7 @@ const LoginComponent = () => {
                         value={loginRequest.username}
                         onChange={handleOnChange}
 
-                        className='w-4/5'
+                        className='lg:w-4/5 w-[250px]'
                     />
 
                     <TextField
@@ -137,12 +145,12 @@ const LoginComponent = () => {
 
                             </InputAdornment>
                         }}
-                        className='w-4/5 '
+                        className='lg:w-4/5 w-[250px]'
                     />
 
                     <LoadingButton
                         variant="contained"
-                        className='w-4/5'
+                        className='lg:w-4/5 w-[250px]'
                         loading={isButtonLoading}
                         disabled={!isButtonEnabled}
                         onClick={login}
@@ -153,6 +161,13 @@ const LoginComponent = () => {
                 </div>
 
             </div>
+
+            <footer className='bg-[#003366] h-[20px] w-full text-center text-[10px] text-slate-200
+            flex justify-center items-center
+            '>
+                Developed By FourTen Softwares &copy; 2022 | +263 77 4780 820
+            </footer>
+
         </div>)
 }
 
