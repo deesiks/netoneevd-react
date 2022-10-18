@@ -5,7 +5,7 @@ const TRANSACTION_URL = '/admin/v1/transactions';
 const AIRTIME_URL = '/admin/v1/transactions/{id}/airtime';
 const AIRTIME_TICKET_URL = '/admin/v1/tickets/transaction/{id}';
 const NEW_AIRTIME_TICKET_URL = '/admin/v1/tickets/transaction/generate/{id}';
-const BACK_COVER_URL = '/admin/v1/tickets/back-cover';
+const BACK_COVER_URL = '/admin/v1/tickets/back-cover/{denomination}';
 
 import fileDownload from "js-file-download";
 
@@ -63,9 +63,9 @@ const printSavedAirtime = (transactionId) => {
 
 }
 
-const printBackCover = () => {
+const printBackCover = (denomination) => {
 
-    return axiosInstance.get(BACK_COVER_URL, {responseType: 'blob'})
+    return axiosInstance.get(BACK_COVER_URL.replace('{denomination}', denomination), {responseType: 'blob'})
         .then(response => {
             fileDownload(response.data, 'backcovers.pdf');
             return true;
