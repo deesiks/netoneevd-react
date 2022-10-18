@@ -1,7 +1,7 @@
 import React from 'react'
 import {
-    Chip,
-    IconButton,
+    Chip, Divider,
+    IconButton, Menu, MenuItem,
     Pagination,
     Paper,
     Table,
@@ -19,6 +19,8 @@ import LoadingIndicatorComponent from "../../../../../utilities/loading.indicato
 import NewTransactionDialog from "./new.transaction.dialog";
 import {useAlert} from "react-alert";
 import Skeleton from '@mui/material/Skeleton';
+import Routes from "../../main/constants/routes";
+import Denominations from "../framework/denominations";
 
 const TransactionDataComponent = (props) => {
 
@@ -29,6 +31,15 @@ const TransactionDataComponent = (props) => {
     const [openNewTransactionDialog, isNewTransactionDialogOpen] = useState(false);
     const [selected, setSelected] = useState(null);
     const [printLoading, isPrintLoading] = useState(false);
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const openTransactionDialog = () => {
 
@@ -75,11 +86,11 @@ const TransactionDataComponent = (props) => {
             });
     }
 
-    const printBackCovers = () => {
+    const printBackCovers = (denomination) => {
 
         isPrintLoading(true);
 
-        printBackCover().then(
+        printBackCover(denomination).then(
             () => {
                 isPrintLoading(false);
             }
@@ -133,10 +144,28 @@ const TransactionDataComponent = (props) => {
                             <PlusIcon className='w-5 h-5'/>
                         </IconButton>
 
-                        <IconButton onClick={printBackCovers}>
+                        <IconButton onClick={handleClick}>
                             <ArrowDownTrayIcon className='w-5 h-5'/>
                         </IconButton>
 
+                        <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                            }}
+                        >
+
+                            {Denominations.map(denomination =>
+
+                                <MenuItem onClick={() => {printBackCovers(denomination.value)}}>
+                                    {denomination.label}
+                                </MenuItem>)
+
+                            }
+                        </Menu>
                     </div>
 
                     <div className='ml-auto flex items-center'>
