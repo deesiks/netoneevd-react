@@ -8,6 +8,7 @@ import AirtimeDataComponent from "./airtime.data.component";
 import {useAlert} from "react-alert";
 import {useEffect, useState} from "react";
 import {getAirtime} from "../services/transaction.service";
+import ErrorsComponent from "./errors.component";
 
 const PrintComponent = (props) => {
 
@@ -28,6 +29,14 @@ const PrintComponent = (props) => {
     });
 
     const [fetching, isFetching] = useState(true);
+    const [openErrors,isErrorsOpen] = useState(false);
+
+    const toggleOpenErrors = () => {
+
+        isErrorsOpen(prevState => !prevState)
+
+    }
+
 
     const [page, setPage] = useState(0);
 
@@ -102,9 +111,25 @@ const PrintComponent = (props) => {
 
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>CLOSE</Button>
-                <Button onClick={print}>Print</Button>
+
+                <div className= {` ${selected.errors ? 'mr-auto' : 'hidden'  }`}>
+                    <Button color='error' onClick={toggleOpenErrors}>ERRORS</Button>
+                </div>
+
+                <div>
+                    <Button onClick={handleClose}>CLOSE</Button>
+                    <Button onClick={print}>Print</Button>
+                </div>
+
             </DialogActions>
+
+            <ErrorsComponent
+
+                open = {openErrors}
+                errors = {selected.errors}
+                handleClose = {toggleOpenErrors}
+
+            />
         </Dialog>
 
     )
