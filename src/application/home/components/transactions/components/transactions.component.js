@@ -139,15 +139,7 @@ const TransactionsComponent = () => {
                             transaction = {
                                 ...transaction,
                                 passed: body.passed,
-                                color: giveColorOnMessage(body.status),
-                                onGoing: transaction.passed !== transaction.denominationCount
-                            }
-                        }
-
-                        if(transaction.id !== body.id){
-                            transaction = {
-                                ...transaction,
-                                onGoing: false
+                                color: giveColorOnMessage(body.status)
                             }
                         }
 
