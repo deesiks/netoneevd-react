@@ -16,7 +16,7 @@ const ErrorsComponent = (props) =>{
     const {errors, open, handleClose} = props;
 
     const columns = [
-        { id: 'timestamp', label: 'Timestamp', width: 100 },
+        { id: 'timeStamp', label: 'Timestamp', width: 100 },
         { id: 'message', label: 'Error', minWidth: 150, align: 'left'}
     ];
 
@@ -65,9 +65,9 @@ const ErrorsComponent = (props) =>{
 
                             {errors && <TableBody>
                                 {errors
-                                    .map((transaction) => {
+                                    .map((errors) => {
                                         return (
-                                            <TableRow hover role="checkbox" tabIndex={-1} key={transaction.id}>
+                                            <TableRow hover role="checkbox" tabIndex={-1} key={errors.timeStamp}>
                                                 {columns.map((column) => {
                                                     const value = errors[column.id];
                                                     return (
